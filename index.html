@@ -2,13 +2,22 @@
 <html>
   <body>
     <h2>Spotify Auth Redirect</h2>
+    <p id="status">Waiting for token...</p>
     <script>
+      // Extract the token from the URL hash
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       const token = params.get("access_token");
+
       if (token) {
-        document.body.innerHTML += `<p>Access Token: ${token}</p>`;
-        console.log("Spotify token:", token);
+        document.getElementById("status").innerText = "✅ Access Token received!";
+        // Show the token so you can copy it
+        const tokenElement = document.createElement("pre");
+        tokenElement.textContent = token;
+        document.body.appendChild(tokenElement);
+        console.log("Your Spotify access token:", token);
+      } else {
+        document.getElementById("status").innerText = "❌ No token found. Try authorizing again.";
       }
     </script>
   </body>
