@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      // If Spotify sends the hash, redirect to index.html with it preserved as query
+      if (window.location.hash) {
+        const newUrl = 'index.html?' + window.location.hash.substring(1);
+        window.location.replace(newUrl);
+      } else {
+        document.body.innerHTML = "<h3>No hash found. Opened directly?</h3>";
+      }
+    </script>
+  </body>
+</html>
