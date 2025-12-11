@@ -4,20 +4,32 @@
     <h2>Spotify Auth Redirect</h2>
     <p id="status">Waiting for token...</p>
     <script>
-      // Extract the token from the URL hash
-      const hash = window.location.hash.substring(1);
-      const params = new URLSearchParams(hash);
-      const token = params.get("access_token");
+      // Try both hash and query string
+      let token = null;
+
+      // Case 1: token comes after '#'
+      if (window.location.hash) {
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        token = params.get("access_token");
+      }
+
+      // Case 2: token came via '?', fallback
+      if (!token && window.location.search) {
+        const query = window.location.search.substring(1);
+        const params = new URLSearchParams(query);
+        token = params.get("access_token");
+      }
 
       if (token) {
         document.getElementById("status").innerText = "✅ Access Token received!";
-        // Show the token so you can copy it
-        const tokenElement = document.createElement("pre");
-        tokenElement.textContent = token;
-        document.body.appendChild(tokenElement);
-        console.log("Your Spotify access token:", token);
+        const pre = document.createElement("pre");
+        pre.textContent = token;
+        document.body.appendChild(pre);
+        console.log("Spotify Access Token:", token);
       } else {
-        document.getElementById("status").innerText = "❌ No token found. Try authorizing again.";
+        document.getElementById("status").innerText =
+          "❌ No token found. Try authorizing again.";
       }
     </script>
   </body>
