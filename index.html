@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Spotify Auth Redirect</h2>
+    <script>
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const token = params.get("access_token");
+      if (token) {
+        document.body.innerHTML += `<p>Access Token: ${token}</p>`;
+        console.log("Spotify token:", token);
+      }
+    </script>
+  </body>
+</html>
