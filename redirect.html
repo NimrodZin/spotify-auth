@@ -2,12 +2,12 @@
 <html>
   <body>
     <script>
-      // If Spotify sends the hash, redirect to index.html with it preserved as query
+      // If Spotify sends the token as a hash, preserve and forward it as a query
       if (window.location.hash) {
         const newUrl = 'index.html?' + window.location.hash.substring(1);
         window.location.replace(newUrl);
       } else {
-        document.body.innerHTML = "<h3>No hash found. Opened directly?</h3>";
+        document.body.innerHTML = "<h3>No hash found. Try reauthorizing.</h3>";
       }
     </script>
   </body>
