@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <body>
+  <head>
+    <meta charset="utf-8">
+    <title>Spotify Redirect</title>
     <script>
-      // If Spotify sends the token as a hash, preserve and forward it as a query
-      if (window.location.hash) {
-        const newUrl = 'index.html?' + window.location.hash.substring(1);
-        window.location.replace(newUrl);
-      } else {
-        document.body.innerHTML = "<h3>No hash found. Try reauthorizing.</h3>";
-      }
+      (function() {
+        // Immediately handle Spotify's redirect
+        const hash = window.location.hash.substring(1);
+        if (hash && hash.includes('access_token=')) {
+          const newUrl = window.location.origin + window.location.pathname.replace('redirect.html', 'index.html?') + hash;
+          window.location.replace(newUrl);
+        } else {
+          document.write("<h3>❌ No token found. Please try authorizing again.</h3>");
+        }
+      })();
     </script>
-  </body>
+  </head>
+  <body></body>
 </html>
